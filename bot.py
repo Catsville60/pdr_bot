@@ -1,4 +1,8 @@
 # -*- coding: utf-8 -*-
+"""Bot just for fun and trash
+and of course choose who's the faggot of the day!"""
+
+
 
 import random
 import telebot
@@ -10,7 +14,9 @@ import datetime
 #TODO Change stickers
 
 # Token
-bott = telebot.TeleBot('1751046677:AAHnRV2LBt8O4dpI22T-GOeKHuIEOKQHNZI')
+with open("token.txt") as f:
+    TOKEN = f.read().strip()
+bott = telebot.TeleBot(f'{TOKEN}')
 bott.remove_webhook()
 
 # Just say Hi!
