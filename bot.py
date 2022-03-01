@@ -11,8 +11,8 @@ import datetime
 # Token
 with open("token.txt") as token_file:
     token = token_file.read().strip()
-bott = telebot.TeleBot(f'{token}')
-bott.remove_webhook()
+    bott = telebot.TeleBot(f'{token}')
+    bott.remove_webhook()
 
 # Just say Hi!
 @bott.message_handler(commands=['hi_pidar'])
@@ -101,8 +101,9 @@ def choose_pidr(message):
             rnd_user = random.choice(infor["Users"])
         pidr_of_day = infor["Pidr_of_day"]
         today = datetime.datetime.now()
-        trigger = today.day - (datetime.datetime.strptime(infor["Today"], "%Y/%m/%d")).day
-
+        trigger_day = today.day - (datetime.datetime.strptime(infor["Today"], "%Y/%m/%d")).day
+        if trigger_day < 0:
+            trigger_day = trigger_day * -1
         if "01-01" in f"{today}":
             with open('users.json', "r") as users_file_re:
                 infor = json.load(users_file_re)
@@ -116,8 +117,8 @@ def choose_pidr(message):
                         users_file_a.close()
             bott.send_message(message.chat.id, f'{tabel}')
             bott.send_sticker(message.chat.id, 'CAACAgIAAxkBAAED9XBiDlmNHt2G-tNHE6pQsgboMKHXIwACtQMAAgk7OxPvqVG89ySCliME')
-
-        if trigger >= 1:
+        print(trigger_day)
+        if trigger_day >= 1:
 
             username_index = infor["Users"].index(rnd_user)
             print(f"Username_index {username_index}")
